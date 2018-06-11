@@ -1,0 +1,118 @@
+<div class="paciente" id="<%= @paciente.id %>">
+	<h2>Ficha do Paciente</h2>
+	
+	<hr />
+	<table>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:nome) %></td>
+			<td><%= @paciente.nome %></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(@paciente.data_do_cadastro) if @paciente.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:nascimento) %></td>
+			<td><%= l(@paciente.nascimento) if @paciente.nascimento %></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:local_nascimento) %></td>
+			<td><%= @paciente.local_nascimento %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:identidade) %></td>
+			<td><%= @paciente.identidade %></td>
+			<td class='titulo'><%= Paciente.human_attribute_name(:cpf) %></td>
+			<td><%= @paciente.cpf %></td>
+		</tr>		
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:cartao_sus) %></td>
+			<td colspan='3'><%= @paciente.cartao_sus %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:raca) %></td>
+			<td><%= @paciente.raca %></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:escolaridade) %></td>
+			<td><%= @paciente.escolaridade.nome %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:profissao) %></td>
+			<td colspan='3'><%= @paciente.profissao %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:endereco) %></td>
+			<td><%= @paciente.endereco %></td>	
+			<td class="titulo"><%= Paciente.human_attribute_name(:endereco_profissional) %></td>
+			<td><%= @paciente.endereco_profissional %></td>	
+		</tr>
+		<% @paciente.meios_contato.each do |mc| %>
+			<tr>
+				<td class="titulo"><%= mc.tipo %></td>
+				<td colspan='3' class="hover_nisso">
+					<%= mc.valor %> 
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:estado_civil) %></td>
+			<td><%= @paciente.estado_civil.nome %></td>
+			<td class='titulo'><%= Paciente.human_attribute_name(:nome_conjuge) %></td>
+			<td><%= @paciente.nome_conjuge %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:profissao_conjuge) %></td>
+			<td><%= @paciente.profissao_conjuge %></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:contato_conjuge) %></td>
+			<td><%= @paciente.contato_conjuge %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:tem_filhos) %></td>
+			<td><%= @paciente.tem_filhos? ? 'Sim' : 'Não' %></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:quantidade_filhos) %></td>
+			<td><%= @paciente.quantidade_filhos %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:idade_filhos) %></td>
+			<td colspan='3'><%= @paciente.idade_filhos %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:tipo_de_cancer) %></td>
+			<td colspan='3'><%= @paciente.tipo_de_cancer %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:servicos) %></td>
+			<td><ul>
+				<% @paciente.servicos.each do |s| %>
+					<li><%= s.nome %></li>
+				<% end %>
+			</ul></td>
+			<td class="titulo"><%= Paciente.human_attribute_name(:produtos) %></td>
+			<td><ul>
+				<% @paciente.produtos.each do |p| %>
+					<li><%= p.nome %></li>
+				<% end %>
+			</ul></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Paciente.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= @paciente.observacao %></td>
+		</tr>		
+		<% if @paciente.morto? %>
+			<tr>
+				<td class="titulo"><%= Paciente.human_attribute_name(:obito) %></td>
+				<td colspan='3'>
+					<%= l(@paciente.obito.to_date) %>
+					<pre><%= @paciente.observacao_obito %></pre>
+				</td>
+			</tr>
+		<% end %>
+		<tr>
+			<td colspan='4'>
+				<pre></pre>
+			</td>
+		</tr>
+		<% [:diagnostico,:tratamentos, :acompanhamento_medico, :medicamentos_utilizados,
+			:custo_manutencao_cancer, :atividades, :horario_disponibilidade ].each do |attr| %>
+			<tr><td colspan='4' class='titulo' style='text-align: center'><%= Paciente.human_attribute_name(attr) %></td></tr>
+			<tr><td colspan='4'>
+				<p><%= @paciente.send(attr) %></p>
+			</td></tr>
+		<% end %>
+	</table>
+</div>

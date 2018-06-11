@@ -1,0 +1,38 @@
+<div id="crud_index">
+
+	<div id="lista">
+		
+		<div id="lista_header" class="section_header">
+			<%= link_to(image_tag('botoes/add.png'),new_solicitacao_produto_path, remote: true, style: 'float: right') %>
+			<h2 class="titulo"><%= SolicitacaoProduto.model_names[:human_plural] %></h2>
+			<%= filtra_html('#indice .item', watermark: t('crud.pesquisa')) %>
+		</div>
+		<ul id="indice">
+			<li class="divisao"><%= t('.vencidas') %></li>
+			<% @vencidas.each do |sp| %>
+				<li id='<%= sp.id %>' class='item pode_selecionar vencida'><%= sp.paciente.nome %></li>
+			<% end %>
+			
+			<li class="divisao"><%= t('.nao_entregues') %></li>
+			<% @nao_entregues.each do |sp| %>
+				<li id='<%= sp.id %>' class='item pode_selecionar'><%= sp.paciente.nome %></li>
+			<% end %>
+			
+			<li class="divisao"><%= t('.entregues') %></li>
+			<% @entregues.each do |sp| %>
+				<li id='<%= sp.id %>' class='item pode_selecionar'>
+					<%= l(sp.entregue_dia) %> - <%= sp.paciente.nome %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	
+	<div id="direita" class="resumos">
+		<%= render(partial: 'resumo', collection: @vencidas, as: :solicitacao_produto) %>
+		<%= render(partial: 'resumo', collection: @solicitacoes_produtos, as: :solicitacao_produto) %>
+		<div id="exibe_form" class="resumo"></div>
+	</div>
+</div>
+
+<%= javascript_tag("Crud.exibeResumo({id: #{params[:selecionar] || @solicitacoes_produtos.first.id}});") if @solicitacoes_produtos.any? %>
+

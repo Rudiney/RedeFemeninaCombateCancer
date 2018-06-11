@@ -1,0 +1,13 @@
+pt-BR:
+  privado:
+     pacientes:
+        index:
+           obitos: Óbitos
+        resumo:
+           registrar_obito: Registrar óbito
+        solicitacao_de_servicos:
+           paciente_sem_solicitacao_servico: Pacente sem solicitações de serviços
+        solicitacao_de_produtos:
+           paciente_sem_solicitacao_produto: Pacente sem solicitações de produtos
+        form_registro_obito:
+           titulo: Registrar óbito

@@ -1,0 +1,20 @@
+@import "helpers";
+
+.botao_verde{
+	$borda: #577B2B;
+	border: 1px solid $borda;
+	@include fundo_gradiente(#9BB841, #679F3D);
+	@include borda_redonda(5px);
+		
+	&:first-child { @include borda_redonda(5px, esquerda); }
+	&:last-child { @include borda_redonda(5px, direita); }
+    
+    border-right: 1px solid $borda ;
+	padding: 4px 10px;
+	color: white;
+	text-shadow: 0px 1px 0px #555;	
+	
+    &:hover{
+	    @include fundo_gradiente(#679F3D, #9BB841);
+	}
+}

@@ -1,0 +1,20 @@
+pt-BR:
+  privado:
+     relatorio_atividade:
+        index:
+           titulo: Relatório de Atividade
+           filtra: Filtros
+           filtros:
+              data_inicial: Data inicial
+              data_final: Data final
+              pacientes_ids: Pacientes
+              profissionais_ids: Profissionais
+              produtos_ids: Produtos
+              servicos_ids: Serviços
+              agrupar_por: Agrupar por
+        resumo:
+           titulo: Relatório de Atividade
+           produtos_entregues: Produtos Entregues
+           servicos_prestados: Serviços Prestados
+           
+              

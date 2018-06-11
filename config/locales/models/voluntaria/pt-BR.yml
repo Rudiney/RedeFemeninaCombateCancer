@@ -1,0 +1,31 @@
+pt-BR:
+   activerecord:
+      models:
+         voluntaria: Voluntária
+      model_names:
+         voluntaria:
+            singular: voluntaria
+            plural: voluntarias
+            human_singular: Voluntária
+            human_plural: Voluntárias
+      attributes:
+         voluntaria:
+            nome: Nome
+            endereco: Endereço
+            cpf: CPF
+            identidade: RG
+            email: E-mail
+            nascimento: Data de nascimento
+            local_de_nascimento: Local de nascimento
+            estado_civil: Estado civil
+            nome_do_esposo: Nome do esposo
+            profissao: Profissão
+            escolaridade: Escolaridade
+            horario_para_contato: Horário p/ contato
+            meios_contato: Meios de contato
+            tipo_voluntaria: Tipo de voluntária
+            atuante: Atuante?
+            atuante_desde: Atuante desde
+            areas_interesse: Áreas de interesse para atuar
+            sugestoes: Sugestões
+            observacao: Observação

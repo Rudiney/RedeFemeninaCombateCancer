@@ -1,0 +1,50 @@
+@import 'helpers';
+
+#page_header {
+	position: absolute;
+	top: 0px; right: 0px; left:0px;
+	height: $altura_header;
+	
+	background-color: #fd9eb4;
+	padding: 5px;
+	border-bottom: 1px solid #999;
+	height: 60px;
+	
+	#conteudo{
+	
+		div#logo{
+			display: inline-block;
+			img{ width: 320px} 
+		}
+		
+		#usuario_logado{
+			
+			width: 200px;
+			float: right;
+			text-align:right;
+			padding: 3px;
+				
+			div#nome{
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+
+			@include borda_redonda(5px);
+		
+			img#avatar{
+				border: 1px solid #999;
+				background-color: white;
+				width: 50px;
+				float: right;
+				margin-left: 5px;
+			}
+		
+		
+			#menuzinho{
+				font-size: 10pt;
+				a, a:visited{color:black};
+			}
+		}
+	}
+}

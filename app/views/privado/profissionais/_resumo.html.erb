@@ -1,0 +1,61 @@
+<div registro="<%= profissional.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_profissional_path(profissional), style:'float: right', remote: true) %>
+					<h2><%= profissional.class.model_names[:human_singular] %> <%= profissional.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:nome) %></td>
+			<td><%= profissional.nome %></td>
+			<td class="titulo"><%= Profissional.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(profissional.data_do_cadastro) if profissional.data_do_cadastro %></td>
+		</tr>
+		<% profissional.meios_contato.each do |mc| %>
+		<tr>
+			<td class="titulo"><%= mc.tipo %></td>
+			<td colspan='3' class="hover_nisso">
+				<%= mc.valor %>
+				<%= link_to(image_tag('botoes/minus-circle.png', class: 'hover_exibe_isso', style: 'vertical-align: bottom'),
+					url_for(id: profissional.id, controller: 'profissionais', action: 'update',
+					voluntaria: { meios_contato_attributes: {'1' => {id: mc.id, _destroy: '1'
+					}}}), remote: true, method: 'PUT', confirm: t('crud.confirma_excluir')) %>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:municipio) %></td>
+			<td colspan='3'><%= profissional.municipio %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:servico) %></td>
+			<td colspan='3'><%= link_to(profissional.servico.nome, profissional.servico) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:convenios) %></td>
+			<td colspan='3'>
+				<ul>
+					<% profissional.convenios.each do |c| %>
+						<li><%= link_to(c.nome, c) %></li>
+					<% end %>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= profissional.observacao %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Profissional.human_attribute_name(:anexos) %></td>
+			<td colspan='3'><ul>
+				<% profissional.anexos.each do |an| %>
+					<li><%= link_to(an.nome, an.arquivo.url, target: "_blank") %></li>
+				<% end %>
+			</ul></td>
+		</tr>
+
+	</table>
+</div>

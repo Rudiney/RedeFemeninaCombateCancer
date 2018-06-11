@@ -1,0 +1,35 @@
+<%= form_for(@tipo_voluntaria, remote: true) do |f| %>
+	<table class='tabela_informacoes'>
+		<td colspan='4' class="header">
+			<div class="section_header">
+				<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+				<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+				<h2><%= @tipo_voluntaria.class.model_names[:human_singular] %></h2>
+			</div>
+		</td>		
+		<% if @tipo_voluntaria.errors.any? %>
+			<tr><td colspan=4>
+			  <%= render(partial: 'crud/erros_registro', locals: {r: @tipo_voluntaria}) %>
+			</td></tr>
+	   <% end %>		
+	  <tr>
+		  <td class="titulo"><%= f.label(:nome) %></td>
+		  <td><%= f.text_field(:nome) %></td>
+		  <td class="titulo"><%= f.label(:data_do_cadastro) %></td>
+		  <td><%= f.text_field(:data_do_cadastro, value: l(@tipo_voluntaria.data_do_cadastro || Date.today)) %></td>
+	  </tr>
+  	<tr>
+  		<td class="titulo"><%= f.label(:observacao) %></td>
+  		<td colspan='3'><%= f.text_area(:observacao, rows: 2) %></td>
+  	</tr>
+		<tr>
+			<td colspan='4'>
+				<%= link_to(t('crud.excluir'), @tipo_voluntaria, method: 'delete', confirm: t('crud.confirma_excluir')) unless @tipo_voluntaria.new_record? %>
+			</td>
+		</tr>
+ </table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#tipo_voluntaria_data_do_cadastro').mask('99/99/9999');
+</script>

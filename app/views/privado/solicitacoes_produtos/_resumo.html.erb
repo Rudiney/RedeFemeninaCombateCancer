@@ -1,0 +1,46 @@
+<div registro="<%= solicitacao_produto.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_solicitacao_produto_path(solicitacao_produto), style:'float: right', remote: true) %>
+					<h2><%= solicitacao_produto.class.model_names[:human_singular] %> <%= solicitacao_produto.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoProduto.human_attribute_name(:paciente) %></td>
+			<td colspan='3'><%= link_to(solicitacao_produto.paciente.nome, solicitacao_produto.paciente) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoProduto.human_attribute_name(:solicitado_dia) %></td>
+			<td><%= l(solicitacao_produto.solicitado_dia) %></td>
+			
+			<td class="titulo"><%= SolicitacaoProduto.human_attribute_name(:entregue_dia) if solicitacao_produto.entregue? %></td>
+			<td><%= l(solicitacao_produto.entregue_dia) if solicitacao_produto.entregue? %></td>
+		</tr>
+		<tr><td colspan='4' style='padding:0px'>
+			<table id='produtos_selecionados'>
+				<tr>
+					<td class="header"><div class="section_header">
+						<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:quantidade) %></h3>
+					</div></td>
+					<td class="header" style='width:100%;'><div class="section_header">
+						<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:produto) %></h3>
+					</div></td>
+					<td class="header"><div class="section_header">
+						<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:valido_ate) %></h3>
+					</div></td>
+				</tr>
+				<% solicitacao_produto.produtos_solicitados.each do |psp| %>
+				<tr>
+					<td align='center'><%= psp.quantidade %></td>
+					<td><%= link_to(psp.produto.nome, psp.produto) %></td>
+					<td><%= l(psp.valido_ate) if psp.valido_ate %></td>
+				</tr>
+				<% end %>
+			</table>
+		</td></tr>
+	</table>
+</div>
+

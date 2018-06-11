@@ -1,0 +1,42 @@
+<div class="devise">
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+	<table class='tabela_informacoes'>
+		<tr>
+			<td colspan='2' class="header">
+				<div class="section_header">
+					<h2>Faça login para usar o sistema</h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class='titulo'><%= f.label :email, 'Email' %></td>
+			<td><%= f.email_field :email, :autofocus => true %></td>
+		</tr>
+		<tr>
+			<td class='titulo'><%= f.label :password, 'Senha' %></td>
+			<td><%= f.password_field :password %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class='titulo' style='width:100%; text-align: left;'>
+		  	  <% if devise_mapping.rememberable? -%>
+		  	    <div><%= f.check_box :remember_me %> <%= f.label :remember_me, 'Mantenha-me conectado' %></div>
+		  	  <% end -%>
+			</td>
+		</tr>
+		<% if flash[:alert] %>
+		<tr>
+			<td colspan=2>
+				<div class='flash_error'><%= flash[:alert] %></div>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td colspan=2 align=right>
+				<%= render "devise/shared/links" %>
+				<%= f.submit "Entrar" %>
+			</td>
+		</tr>
+	</table>
+	<% end %>
+</div>

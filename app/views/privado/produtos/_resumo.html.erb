@@ -1,0 +1,46 @@
+<div registro="<%= produto.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_produto_path(produto), style:'float: right', remote: true) %>
+					<h2><%= produto.class.model_names[:human_singular] %> <%= produto.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Produto.human_attribute_name(:nome) %></td>
+			<td><%= produto.nome %></td>
+			<td class="titulo"><%= Produto.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(produto.data_do_cadastro) if produto.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Produto.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= produto.observacao %></td>
+		</tr>
+		
+		<tr>
+			<td class="titulo"><%= Produto.human_attribute_name(:pacientes) %></td>
+			<td colspan='3'>
+				<% produto.pacientes.each do |p| %>
+					<li><%= link_to(p.nome, p) %></li>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Produto.human_attribute_name(:solicitacoes) %></td>
+			<td colspan='3'>
+				<% produto.solicitacoes.includes(:solicitacao_produto => :paciente).order('solicitacoes_produtos.solicitado_dia ASC').each do |s| %>
+					<li>
+						<%= check_box_tag(:entregue, 1, 	s.solicitacao_produto.entregue?, disabled: true) %>
+						<%= link_to(s.solicitacao_produto) do %>
+							<%= l(s.solicitacao_produto.solicitado_dia) %> 
+							<%= s.solicitacao_produto.paciente.nome %>
+							(<%= s.quantidade %>)
+						<% end %>
+					</li>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>

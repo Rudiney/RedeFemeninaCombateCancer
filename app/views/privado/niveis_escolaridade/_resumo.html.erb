@@ -1,0 +1,39 @@
+<div registro="<%= nivel_escolaridade.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_nivel_escolaridade_path(nivel_escolaridade), style:'float: right', remote: true) %>
+					<h2><%= nivel_escolaridade.class.model_names[:human_singular] %> <%= nivel_escolaridade.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= NivelEscolaridade.human_attribute_name(:nome) %></td>
+			<td><%= nivel_escolaridade.nome %></td>
+			<td class="titulo"><%= NivelEscolaridade.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(nivel_escolaridade.data_do_cadastro) if nivel_escolaridade.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= NivelEscolaridade.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= nivel_escolaridade.observacao %></td>
+		</tr>
+		
+		<tr>
+			<td class="titulo"><%= NivelEscolaridade.human_attribute_name(:pacientes) %></td>
+			<td colspan='3'>
+				<% nivel_escolaridade.pacientes.each do |p| %>
+					<li><%= link_to(p.nome, p) %></li>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= NivelEscolaridade.human_attribute_name(:voluntarias) %></td>
+			<td colspan='3'>
+				<% nivel_escolaridade.voluntarias.each do |v| %>
+					<li><%= link_to(v.nome, v) %></li>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>

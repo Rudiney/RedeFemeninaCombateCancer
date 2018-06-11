@@ -1,0 +1,45 @@
+pt-BR:
+   activerecord:
+      models:
+         paciente: Paciente
+      model_names:
+         paciente:
+            singular: paciente
+            plural: pacientes
+            human_singular: Paciente
+            human_plural: Pacientes
+      attributes:
+         paciente:
+            nome: Nome completo
+            nascimento: Data de nascimento
+            local_nascimento: Local de nascimento
+            identidade: RG
+            cpf: CPF
+            cartao_sus: Nr. cartão do SUS
+            raca: Raça
+            escolaridade: Escolaridade
+            profissao: Profissão
+            endereco: Endereço residencial
+            endereco_profissional: Endereço profissional
+            estado_civil: Estado civil
+            nome_conjuge: Nome do conjuge
+            profissao_conjuge: Profissão do conjuge
+            contato_conjuge: Contato com o conjuge
+            tem_filhos: Tem filhos?
+            quantidade_filhos: Quantos?
+            idade_filhos: Idade dos filhos
+            tipo_de_cancer: Tipo de câncer
+            diagnostico: Quando e onde foi feito o diagnóstico?
+            tratamentos: Quais tratamentos? E quando foram realizados?
+            acompanhamento_medico: Continua em acompanhamento? Onde e em qual médico?
+            medicamentos_utilizados: Utiliza algum medicamento? Onde adquire? Tem custo com a medicação?
+            custo_manutencao_cancer: Tem algum custo de manutenção decorrente do câncer?
+            atividades: Que atividades gostaria de desenvolver na RFCC?
+            horario_disponibilidade: Quais tardes dispõe para frequentar a RFCC?
+            obito: Data do óbito
+            observacao_obito: Observação
+            servicos: Quais serviços necessita?
+            produtos: Quais produtos necessita?
+            observacao: Observação
+            solicitacoes_produtos: Produtos
+            solicitacoes_servicos: Serviços

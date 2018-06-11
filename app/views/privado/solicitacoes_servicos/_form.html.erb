@@ -1,0 +1,44 @@
+<%= form_for(@solicitacao_servico, remote: true) do |f| %>
+	<table class='tabela_informacoes form_solicitacoes_servicos'>
+		<td colspan='4' class="header">
+			<div class="section_header">
+				<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+				<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+				<h2><%= @solicitacao_servico.class.model_names[:human_singular] %></h2>
+			</div>
+		</td>
+		<% if @solicitacao_servico.errors.any? %>
+		<tr><td colspan=2>
+			<%= render(partial: 'crud/erros_registro', locals: {r: @solicitacao_servico}) %>
+		</td></tr>
+		<% end %>
+		<tr>
+			<td class="titulo"><%= f.label(:paciente) %></td>
+			<td colspan=3><%= f.collection_select(:paciente_id, Paciente.all, :id, :nome,{},{style: 'width: 100%'}) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= f.label(:data) %></td>
+			<td style='width: 100px'><%= f.text_field(:data, style: 'width: 90px', value: l(@solicitacao_servico.data || Date.today)) %></td>
+			<td class="titulo"><%= f.label(:hora) %></td>
+			<td><%= f.text_field(:hora, style: 'width: 150px') %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= f.label(:servico) %></td>
+			<td colspan=3><%= f.collection_select(:servico_id, Servico.all, :id, :nome,{},{style: 'width: 100%'}) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= f.label(:profissional) %></td>
+			<td colspan=3><%= f.collection_select(:profissional_id, Profissional.all, :id, :nome,{},{style: 'width: 100%'}) %></td>
+		</tr>
+		<% if @solicitacao_servico.persisted? %>
+		<tr><td colspan='4'>
+			<%= link_to(t('crud.excluir'), @solicitacao_servico, method: 'delete', confirm: t('crud.confirma_excluir')) %>
+		</td></tr>
+		<% end %>
+	</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('.form_solicitacoes_servicos select').select2();
+	$('#solicitacao_servico_data').mask('99/99/9999');
+</script>

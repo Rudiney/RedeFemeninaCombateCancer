@@ -1,0 +1,9 @@
+pt-BR:
+  privado:
+    aniversariantes:
+      index:
+        titulo: Aniversariantes
+        aniversariantes_de_hoje: Hoje!
+        proximos_aniversariantes: Próximos
+        sem_aniversariantes: ninguém faz aniversário hoje.
+        sem_aniversariantes_proximos: nenhum aniversário dentro de 10 dias.

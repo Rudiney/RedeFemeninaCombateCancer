@@ -1,0 +1,29 @@
+<% menu = {
+	'Dia a Dia' => [:pacientes, :solicitacoes_produtos, :solicitacoes_servicos, :aniversariantes, :relatorio_atividade],
+	'Cadastros' => [:voluntarias, :profissionais, :tipos_voluntarias, :servicos, :produtos, :convenios, :niveis_escolaridade]
+} %>
+<%
+	menu['Cadastros'] << :users if current_user.is_admin?
+ %>
+
+<div class="section_header">
+	<h2>Menu</h2>
+	<%= filtra_html('#menu fieldset li', watermark: t('menu.pesquisa'), id: 'filtro_menu_ir_para') %>
+</div>
+
+<% menu.each do |fieldset, itens| %>
+<fieldset id="<%= fieldset.downcase.gsub(' ', '-') %>">
+	<legend><%= fieldset %></legend>
+	<ul>
+		<% itens.each do |item| %>
+			<li class="pode_selecionar" id='<%= item %>' festa_hoje='<%= cookies[:aniversariantes] && cookies[:aniversariantes].to_i > 0 %>'>
+				<% if item == :aniversariantes && cookies[:aniversariantes] %>
+					<%= link_to(t("menu.#{item}")+" (#{cookies[:aniversariantes]})", send("#{item}_path")) %>
+					<% next %>
+				<% end %>
+				<%= link_to(t("menu.#{item}"), send("#{item}_path")) %>
+			</li>
+		<% end %>
+	</ul>
+</fieldset>
+<% end %>

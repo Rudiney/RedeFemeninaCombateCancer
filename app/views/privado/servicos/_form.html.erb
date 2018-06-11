@@ -1,0 +1,35 @@
+<%= form_for(@servico, remote: true) do |f| %>
+<table class='tabela_informacoes'>
+	<td colspan='4' class="header">
+		<div class="section_header">
+			<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+			<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+			<h2><%= @servico.class.model_names[:human_singular] %></h2>
+		</div>
+	</td>		
+	<% if @servico.errors.any? %>
+	<tr><td colspan=4>
+		<%= render(partial: 'crud/erros_registro', locals: {r: @servico}) %>
+	</td></tr>
+	<% end %>		
+	<tr>
+		<td class="titulo"><%= f.label(:nome) %></td>
+		<td><%= f.text_field(:nome) %></td>
+		<td class="titulo"><%= f.label(:data_do_cadastro) %></td>
+		<td><%= f.text_field(:data_do_cadastro, value: l(@servico.data_do_cadastro || Date.today)) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:observacao) %></td>
+		<td colspan='3'><%= f.text_area(:observacao, rows: 2) %></td>
+	</tr>
+	<% if @servico.persisted? %>
+	<tr><td colspan='4'>
+		<%= link_to(t('crud.excluir'), @servico, method: 'delete', confirm: t('crud.confirma_excluir')) %>
+	</td></tr>
+	<% end %>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#servico_data_do_cadastro').mask('99/99/9999');
+</script>

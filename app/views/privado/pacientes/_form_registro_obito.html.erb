@@ -1,0 +1,26 @@
+<%= form_for(@paciente, remote: true) do |f| %>
+<table class='tabela_informacoes'>
+	<td colspan='2' class="header">
+		<div class="section_header">
+			<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+			<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+			<h2><%= t('.titulo') %></h2>
+		</div>
+	</td>		
+	<tr>
+		<td class="titulo"><%= f.label(:nome) %></td><td><%= f.text_field(:nome) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:obito) %></td>
+		<td><%= f.text_field(:obito, value: l(Date.today), style: 'width: 80px;') %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:observacao_obito) %></td>
+		<td><%= f.text_area(:observacao_obito, rows: 4) %></td>
+	</tr>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#paciente_obito').mask('99/99/9999');
+</script>

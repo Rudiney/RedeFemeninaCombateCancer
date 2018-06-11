@@ -1,0 +1,15 @@
+
+.botao_crud{
+	padding-left: 18px;
+	background-repeat: no-repeat;
+	text-decoration: none;
+	color: #0026E1;
+	
+	&.add{background-image: url('<%= image_path('botoes/plus-circle.png') %>');}
+	&.editar{background-image: url('<%= image_path('botoes/blue-document--pencil.png') %>');}
+	
+	&.excluir{
+		color: red;
+		padding-left: 0px;
+	}
+}

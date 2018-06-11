@@ -1,0 +1,38 @@
+<div registro="<%= tv.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_tipo_voluntaria_path(tv), style:'float: right', remote: true) %>
+					<h2><%= tv.class.model_names[:human_singular] %> <%= tv.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= TipoVoluntaria.human_attribute_name(:nome) %></td>
+			<td><%= tv.nome %></td>
+			<td class="titulo"><%= TipoVoluntaria.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(tv.data_do_cadastro) if tv.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= TipoVoluntaria.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= tv.observacao %></td>
+		</tr>
+		
+		<tr>
+			<td class="titulo">
+				<div style="white-space: nowrap">
+					<%= TipoVoluntaria.human_attribute_name(:voluntarias) %> 
+					(<%= tv.voluntarias.size %>)
+				</div>
+			</td>
+			<td colspan='3'>
+				<ul>
+					<% tv.voluntarias.each do |v| %>
+					<li><%= link_to(v.nome, v) %></li>
+					<% end %>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>

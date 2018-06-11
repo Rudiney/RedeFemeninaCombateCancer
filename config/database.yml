@@ -1,0 +1,32 @@
+development:
+ adapter: postgresql
+ database: rede_femenina_dev
+ host: 172.17.0.1
+ port: 5432
+ pool: 5
+ timeout: 5000
+ template: template0
+ username: postgres
+ password: postgres
+
+test:
+ adapter: postgresql
+ database: rede_femenina_test
+ host: 172.17.0.1
+ port: 5432
+ pool: 5
+ timeout: 5000
+ template: template0
+ username: postgres
+ password: postgres
+
+production:
+ adapter: postgresql
+ database: rede_femenina_prod
+ host: localhost
+ port: 5432
+ pool: 5
+ timeout: 5000
+ template: template0
+ username: postgres
+ password: postgres

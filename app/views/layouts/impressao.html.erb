@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rede Feminina de Combate ao Câncer</title>
+	<%= stylesheet_link_tag "impressao", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+	<script type="text/javascript" charset="utf-8">
+	$(function(){window.print();})
+	</script>
+</head>
+<body>
+	<h1>Rede Feminina Regional de Combate ao Câncer de Xanxerê/SC</h1>
+	<%= yield -%>
+</div>
+</body>
+</html>
+

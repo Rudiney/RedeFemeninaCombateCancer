@@ -1,0 +1,14 @@
+pt-BR:
+   activerecord:
+      models:
+         tipo_voluntaria: Tipo de Voluntária
+      model_names:
+         tipo_voluntaria:
+            singular: tipo_voluntaria
+            plural: tipos_voluntarias
+            human_singular: Tipo de Voluntária
+            human_plural: Tipos de Voluntárias
+      attributes:
+         voluntaria:
+            nome: Nome
+            observacao: Observação

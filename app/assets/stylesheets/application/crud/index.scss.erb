@@ -1,0 +1,68 @@
+@import 'helpers';
+
+#crud_index{
+	position: relative;
+	height: 100%;
+	
+	#lista{
+		$aultura_header: 65px;
+		
+		position: absolute;
+		top: 0px; bottom: 0px; left: 5px;
+		width: 40%;
+		display: inline-block;
+		
+		background-color: white;
+		border: 1px solid #999;
+		border-width: 0px 1px 0px 1px;
+		
+		#lista_header{
+			position: absolute;
+			top: 0px; right: 0px; left:0px;
+			height: $aultura_header;			
+		}
+		
+		#indice{
+			
+			position: absolute;
+			top: $aultura_header +2px; right: 0px; bottom: 0px; left:0px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			padding: 0px;
+			
+			.divisao{
+				padding: 2px;
+				
+				@include fundo_gradiente(#DDDDDE, #ACAEB1);
+				text-shadow: #FEFFFE 0px 1px 0px;
+				text-align:center;
+				outline: 1px solid #707F8C;
+			}
+			
+			.item{
+				padding: 5px;
+				padding-left: 15px;
+				cursor: pointer;
+				
+				@include transicao_duracao(.1s);
+				
+				&:hover{
+					padding-left: 20px;
+					background-color: rgba(0,0,0,0.045);
+					@include transicao_duracao(.1s);
+				}
+			}
+		}
+	}
+
+	#direita{
+		position: absolute;
+		top: 0px; bottom: 0px; right: 0px;
+		width: 59%;
+		overflow-x: hidden;
+		overflow-y: auto;
+		display: inline-block;
+		margin: 0 auto;
+		vertical-align: top;
+	}
+}

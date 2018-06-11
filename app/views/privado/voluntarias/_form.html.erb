@@ -1,0 +1,89 @@
+<%= form_for(@voluntaria, remote: true) do |f| %>
+<table class='tabela_informacoes form_voluntaria'>
+	<tr>
+		<td colspan='4' class="header">
+			<div class="section_header">
+				<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+				<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+				<h2><%= @voluntaria.class.model_names[:human_singular] %></h2>
+			</div>
+		</td>
+	</tr>
+	<% if @voluntaria.errors.any? %>
+	<tr><td colspan='4'>
+		<%= render(partial: 'crud/erros_registro', locals: {r: @voluntaria}) %>
+	</td></tr>
+	<% end %>
+	<tr>
+		<td class="titulo"><%= f.label(:nome) %></td>
+		<td><%= f.text_field(:nome) %></td>
+		<td class="titulo"><%= f.label(:data_do_cadastro) %></td>
+		<td><%= f.text_field(:data_do_cadastro, value: l(@voluntaria.data_do_cadastro || Date.today)) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:tipo_voluntaria) %></td>
+		<td><%= f.select(:tipo_voluntaria_id, @tipos_voluntarias.map{|tv| [tv.nome, tv.id]}) %></td>
+		<td class="titulo"><%= f.label(:atuante) %></td>
+		<td><%= f.check_box(:atuante) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:nascimento) %></td>
+		<td><%= f.text_field(:nascimento, value: l(@voluntaria.nascimento || Date.today)) %></td>
+		<td class='titulo'><%= f.label(:local_de_nascimento) %></td>
+		<td><%= f.text_field(:local_de_nascimento) %> </td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:estado_civil) %></td>
+		<td><%= f.select(:estado_civil, EstadoCivil.all.map{|e| [e.nome, e.to_sym]}) %></td>
+		<td class='titulo'><%= f.label(:nome_do_esposo) %></td>
+		<td><%= f.text_field(:nome_do_esposo) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:identidade) %></td>
+		<td><%= f.text_field(:identidade) %></td>
+		<td class='titulo'><%= f.label(:cpf) %></td>
+		<td><%= f.text_field(:cpf) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:profissao) %></td>
+		<td><%= f.text_field(:profissao) %></td>
+		<td class="titulo"><%= f.label(:escolaridade) %></td>
+		<td><%= f.collection_select(:escolaridade_id, NivelEscolaridade.all, :id, :nome, {}, {style: 'width: 100%'}) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:endereco) %></td>
+		<td colspan='3'><%= f.text_area(:endereco, rows: 2) %></td>
+	</tr>
+	<%= render('meios_contato/form', f: f) %>
+	<tr>
+		<td class="titulo"><%= f.label(:horario_para_contato) %></td>
+		<td colspan='3'><%= f.text_area(:horario_para_contato, rows: 2) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:areas_interesse) %></td>
+		<td colspan='3'><%= f.text_area(:areas_interesse, rows: 2) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:sugestoes) %></td>
+		<td colspan='3'><%= f.text_area(:sugestoes, rows: 2) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:observacao) %></td>
+		<td colspan='3'><%= f.text_area(:observacao, rows: 2) %></td>
+	</tr>
+	
+	<%= render('anexos/form', f: f) %>
+	
+	<% if !@voluntaria.new_record? %>
+		<tr><td colspan='4'>
+			<%= link_to(t('crud.excluir'), @voluntaria, method: 'delete', confirm: t('crud.confirma_excluir'))%>
+		</td></tr>
+	<% end %>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#voluntaria_cpf').mask('999.999.999-99');
+	$('#voluntaria_nascimento').mask('99/99/9999');
+	$('#voluntaria_data_do_cadastro').mask('99/99/9999');
+</script>

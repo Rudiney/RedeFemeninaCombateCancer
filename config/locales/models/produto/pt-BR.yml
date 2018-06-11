@@ -1,0 +1,14 @@
+pt-BR:
+   activerecord:
+      models:
+         produto: Produto
+      model_names:
+         produto:
+            singular: produto
+            plural: produtos
+            human_singular: Produto
+            human_plural: Produtos
+      attributes:
+         produto:
+            nome: Nome
+            observacao: Observação

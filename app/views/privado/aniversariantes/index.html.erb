@@ -1,0 +1,41 @@
+<div id="crud_index">
+	<div id="lista">
+		<div id="lista_header" class="section_header">
+			<h2 class="titulo"><%= t('.titulo') %></h2>
+			<%= filtra_html('#indice .item', watermark: t('crud.pesquisa')) %>
+		</div>
+		<ul id="indice">
+			<li class="divisao"><%= t('.aniversariantes_de_hoje') %></li>
+			<% @aniversariantes_de_hoje.each do |a| %>
+				<li id='<%= a.class.model_names[:singular] %><%= a.id %>' class='item pode_selecionar'>
+					<%= l(a.nascimento, format: "%d/%m") %> - <%= a.class.model_names[:human_singular] %>: <%= a.nome %>
+				</li>
+			<% end -%>
+
+			<% if @aniversariantes_de_hoje.empty? %>
+				<li class="aviso_cinza"><%= t('.sem_aniversariantes') %></li>
+			<% end %>
+
+			<li class="divisao"><%= t('.proximos_aniversariantes') %></li>
+			<% @proximos_aniversariantes.each do |a| %>
+				<li id='<%= a.class.model_names[:singular] %><%= a.id %>' class='item pode_selecionar'>
+					<%= l(a.nascimento, format: "%d/%m") %> - <%= a.class.model_names[:human_singular] %>: <%= a.nome %>
+				</li>
+			<% end -%>
+
+			<% if @proximos_aniversariantes.empty? %>
+				<li class="aviso_cinza"><%= t('.sem_aniversariantes_proximos') %></li>
+			<% end %>
+
+		</ul>
+	</div>
+
+	<div id="direita" class="resumos">
+		<% @todos.each do |a| %>
+			<%= render(partial: "privado/#{a.class.model_names[:plural]}/resumo", locals: { a.class.model_names[:singular].to_sym => a, id_prefix: a.class.model_names[:singular] }) %>
+		<% end %>
+		<div id="exibe_form" class="resumo"></div>
+	</div>
+</div>
+
+<%= javascript_tag("Crud.exibeResumo({id: '#{@todos.first.class.model_names[:singular]}#{@todos.first.id}'});") if @todos.any? %>

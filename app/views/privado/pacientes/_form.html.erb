@@ -1,0 +1,126 @@
+<%= form_for(@paciente, remote: true) do |f| %>
+<table class='tabela_informacoes'>
+	<td colspan='4' class="header">
+		<div class="section_header">
+			<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+			<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+			<h2><%= Paciente.model_names[:human_singular] %></h2>
+		</div>
+	</td>
+	<% if @paciente.errors.any? %>
+		<tr><td colspan=4>
+			<%= render(partial: 'crud/erros_registro', locals: {r: @paciente}) %>
+		</td></tr>
+	<% end %>
+	<tr>
+		<td class="titulo"><%= f.label(:nome) %></td>
+		<td><%= f.text_field(:nome) %></td>
+		<td class="titulo"><%= f.label(:data_do_cadastro) %></td>
+		<td><%= f.text_field(:data_do_cadastro, value: l(@paciente.data_do_cadastro || Date.today)) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:nascimento) %></td>
+		<td><%= f.text_field(:nascimento, value: l(@paciente.nascimento || Date.today)) %></td>
+		<td class="titulo"><%= f.label(:local_nascimento) %></td>
+		<td><%= f.text_field(:local_nascimento) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:identidade) %></td>
+		<td><%= f.text_field(:identidade) %></td>
+		<td class='titulo'><%= f.label(:cpf) %></td>
+		<td><%= f.text_field(:cpf) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:cartao_sus) %></td>
+		<td colspan='3'><%= f.text_field(:cartao_sus) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:raca) %></td>
+		<td><%= f.text_field(:raca) %></td>
+		<td class="titulo"><%= f.label(:escolaridade) %></td>
+		<td><%= f.collection_select(:escolaridade_id, NivelEscolaridade.all, :id, :nome, {}, {style: 'width: 100%'}) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:profissao) %></td>
+		<td colspan='3'><%= f.text_field(:profissao) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:endereco) %></td>
+		<td><%= f.text_area(:endereco, rows: 2) %></td>
+		<td class="titulo"><%= f.label(:endereco_profissional) %></td>
+		<td><%= f.text_area(:endereco_profissional, rows: 2) %></td>
+	</tr>
+	<%= render('meios_contato/form', f: f) %>
+	<tr>
+		<td class="titulo"><%= f.label(:estado_civil) %></td>
+		<td><%= f.select(:estado_civil, EstadoCivil.all.map{|e| [e.nome, e.to_sym]}) %></td>
+		<td class='titulo'><%= f.label(:nome_conjuge) %></td>
+		<td><%= f.text_field(:nome_conjuge) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:profissao_conjuge) %></td>
+		<td><%= f.text_field(:profissao_conjuge) %></td>
+		<td class="titulo"><%= f.label(:contato_conjuge) %></td>
+		<td><%= f.text_field(:contato_conjuge) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:tem_filhos) %></td>
+		<td><%= f.check_box(:tem_filhos) %></td>
+		<td class="titulo"><%= f.label(:quantidade_filhos) %></td>
+		<td><%= f.number_field(:quantidade_filhos) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:idade_filhos) %></td>
+		<td colspan='3'><%= f.text_field(:idade_filhos) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:tipo_de_cancer) %></td>
+		<td colspan='3'><%= f.text_field(:tipo_de_cancer) %></td>
+	</tr>
+
+	<tr>
+		<td class="titulo"><%= f.label(:servicos) %></td>
+		<td><%= f.collection_select(:servico_ids, Servico.all, :id, :nome, {}, {multiple: true, style: 'width: 100%'}) %></td>
+		<td class="titulo"><%= f.label(:produtos) %></td>
+		<td><%= f.collection_select(:produto_ids, Produto.all, :id, :nome, {}, {multiple: true, style: 'width: 100%'}) %></td>
+	</tr>
+	<% if @paciente.morto? %>
+		<tr>
+			<td class="titulo"><%= f.label(:obito) %></td>
+			<td colspan='3'>
+				<%= f.text_field(:obito, value: l(@paciente.obito.to_date), style: 'width: 80px;') %>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= f.label(:observacao_obito) %></td>
+			<td colspan='3'><%= f.text_area(:observacao_obito, rows: 4) %></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td class="titulo"><%= f.label(:observacao) %></td>
+		<td colspan='3'><%= f.text_area(:observacao, rows: 2) %></td>
+	</tr>
+
+	<% [:diagnostico,:tratamentos, :acompanhamento_medico, :medicamentos_utilizados,
+		:custo_manutencao_cancer, :atividades, :horario_disponibilidade ].each do |attr| %>
+		<tr><td colspan='4' class='titulo' style='text-align: center'><%= f.label(attr) %></td></tr>
+		<tr><td colspan='4'><%= f.text_area(attr, rows: 2) %></td></tr>
+	<% end %>
+
+	<%= render('anexos/form', f: f) %>
+
+	<% if @paciente.persisted? %>
+		<tr><td colspan='4'>
+			<%= link_to(t('crud.excluir'), @paciente, method: 'delete', confirm: t('crud.confirma_excluir')) %>
+		</td></tr>
+	<% end %>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#paciente_cpf').mask('999.999.999-99');
+	$('#paciente_nascimento').mask('99/99/9999');
+	$('#paciente_data_do_cadastro').mask('99/99/9999');
+	$('#paciente_servico_ids').select2();
+	$('#paciente_produto_ids').select2();
+</script>

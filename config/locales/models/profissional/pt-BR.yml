@@ -1,0 +1,10 @@
+pt-BR:
+   activerecord:
+      models:
+         profissional: Profissional
+      attributes:
+         profissional:
+            nome: Nome
+            municipio: Município
+            servico: Serviço
+            observacao: Observação

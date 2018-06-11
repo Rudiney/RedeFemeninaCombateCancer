@@ -1,0 +1,36 @@
+<div class="resumo relatorio_atividade">
+	<table class="tabela_informacoes">
+		<tr>
+			<td class="header">
+				<div class="section_header">
+					<%= link_to_function(image_tag('botoes/printer2.png'), "$('iframe#para_impressao').attr('src', '#{imprimir_relatorio_atividade_path(filtros: params[:filtros])}')", style:'float: left;') %>
+					<h2><%= t('.titulo') %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="header">
+				<div class="section_header">
+					<h3><%= t('.produtos_entregues') %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style='padding:0px'>
+				<%= render('tabela_produtos_entregues') %>
+			</td>
+		</tr>
+		<tr>
+			<td class="header">
+				<div class="section_header">
+					<h3><%= t('.servicos_prestados') %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style='padding:0px'>
+				<%= render('tabela_servicos_prestados') %>
+			</td>
+		</tr>
+	</table>
+</div>

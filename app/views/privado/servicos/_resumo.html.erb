@@ -1,0 +1,39 @@
+<div registro="<%= servico.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_servico_path(servico), style:'float: right', remote: true) %>
+					<h2><%= servico.class.model_names[:human_singular] %> <%= servico.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Servico.human_attribute_name(:nome) %></td>
+			<td><%= servico.nome %></td>
+			<td class="titulo"><%= Servico.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(servico.data_do_cadastro) if servico.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Servico.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= servico.observacao %></td>
+		</tr>
+		
+		<tr>
+			<td class="titulo"><%= Servico.human_attribute_name(:pacientes) %></td>
+			<td colspan='3'>
+				<% servico.pacientes.each do |p| %>
+					<li><%= link_to(p.nome, p) %></li>
+				<% end %>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Servico.human_attribute_name(:profissionais) %></td>
+			<td colspan='3'>
+				<% servico.profissionais.each do |p| %>
+					<li><%= link_to(p.nome, p) %></li>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</div>

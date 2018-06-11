@@ -1,0 +1,53 @@
+<%= form_for(@profissional, remote: true) do |f| %>
+<table class='tabela_informacoes'>
+	<td colspan='4' class="header">
+		<div class="section_header">
+			<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+			<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+			<h2><%= @profissional.class.model_names[:human_singular] %></h2>
+		</div>
+	</td>
+	<% if @profissional.errors.any? %>
+		<tr><td colspan=2>
+			<%= render(partial: 'crud/erros_registro', locals: {r: @profissional}) %>
+		</td></tr>
+	<% end %>
+	<tr>
+		<td class="titulo"><%= f.label(:nome) %></td>
+		<td><%= f.text_field(:nome) %></td>
+		<td class="titulo"><%= f.label(:data_do_cadastro) %></td>
+		<td><%= f.text_field(:data_do_cadastro, value: l(@profissional.data_do_cadastro || Date.today)) %></td>
+	</tr>
+	<%= render('meios_contato/form', f: f) %>
+	<tr>
+		<td class="titulo"><%= f.label(:municipio) %></td>
+		<td colspan='3'><%= f.text_field(:municipio) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:servico) %></td>
+		<td colspan='3'><%= f.collection_select(:servico_id, Servico.all, :id, :nome, {}, {style: 'width: 100%'}) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:convenios) %></td>
+		<td colspan='3'><%= f.collection_select(:convenio_ids, Convenio.all, :id, :nome, {}, {multiple: true, style: 'width: 100%'}) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:observacao) %></td>
+		<td colspan='3'><%= f.text_area(:observacao, rows: 2) %></td>
+	</tr>
+
+	<%= render('anexos/form', f: f) %>
+
+	<% if @profissional.persisted? %>
+		<tr><td colspan='4'>
+			<%= link_to(t('crud.excluir'), @profissional, method: 'delete', confirm: t('crud.confirma_excluir')) %>
+		</td></tr>
+	<% end %>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('#profissional_servico_id').select2();
+	$('#profissional_convenio_ids').select2();
+	$('#profissional_data_do_cadastro').mask('99/99/9999');
+</script>

@@ -1,0 +1,29 @@
+<tr>
+	<td colspan='4' class="header"><div class="section_header">
+		<%= link_to(image_tag('botoes/add.png', style: 'height: 22px; margin: 2px 2px 0px 0px;'), new_solicitacao_produto_path(solicitacao_produto: {paciente_id: paciente.id}), remote: true, style: 'float: right;') %>
+		<h3><%= Paciente.human_attribute_name(:solicitacoes_produtos) %></h3>
+	</div></td>
+</tr>
+<tr>
+	<td colspan="4" style='padding: 0px'>
+		<table width='100%'>
+			<tr>
+				<td NOWRAP class='titulo left'><%= SolicitacaoProduto.human_attribute_name(:solicitado_dia) %></td>
+				<td class='titulo left'><%= SolicitacaoProduto.human_attribute_name(:produtos) %></td>
+				<td class='titulo left'><%= SolicitacaoProduto.human_attribute_name(:entregue_dia) %></td>
+			</tr>
+
+			<% paciente.solicitacoes_produtos.each do |s|  %>
+				<tr>
+					<td NOWRAP><%= l(s.solicitado_dia) %></td>
+					<td><%= link_to(s.solicitado, s) %></td>
+					<td NOWRAP><%= l(s.entregue_dia) if s.entregue? %></td>
+				</tr>
+			<% end %>
+
+			<% if paciente.solicitacoes_produtos.empty? %>
+				<tr><td colspan=4><div class="msg grey center"><%= t('.paciente_sem_solicitacao_produto') %></div></td></tr>
+			<% end %>
+		</table>
+	</td>
+</tr>

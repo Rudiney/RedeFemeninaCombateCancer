@@ -1,0 +1,32 @@
+<div id="crud_index">
+
+	<div id="lista">
+		
+		<div id="lista_header" class="section_header">
+			<%= link_to(image_tag('botoes/add.png'), new_paciente_path, remote: true, style: 'float: right') %>
+			<h2 class="titulo"><%= Paciente.model_names[:human_plural] %></h2>
+			<%= filtra_html('#indice .item', watermark: t('crud.pesquisa')) %>
+		</div>
+		<ul id="indice">
+			<% @pacientes.each do |p| %>
+				<li id='<%= p.id %>' class='item pode_selecionar'>
+					<%= p.nome %>
+				</li>
+			<% end %>
+			<li class="divisao"><%= t('.obitos') %></li>
+			<% @pacientes_mortos.each do |p| %>
+				<li id='<%= p.id %>' class='item pode_selecionar'>
+					<%= l(p.obito.to_date) %> - <%= p.nome %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	
+	<div id="direita" class="resumos">
+		<%= render(partial: 'resumo', collection: @pacientes, as: :paciente) %>
+		<%= render(partial: 'resumo', collection: @pacientes_mortos, as: :paciente) %>
+		<div id="exibe_form" class="resumo"></div>
+	</div>
+</div>
+
+<%= javascript_tag("Crud.exibeResumo({id: #{params[:selecionar] || @pacientes.first.id}});") if @pacientes.any? %>

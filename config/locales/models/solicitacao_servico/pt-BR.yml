@@ -1,0 +1,16 @@
+pt-BR:
+   activerecord:
+      models:
+         solicitacao_servico: Solicitação de Serviço
+      model_names:
+         solicitacao_servico:
+            singular: solicitacao_servico
+            plural: solicitacoes_servicos
+            human_singular: Solicitação de Serviço
+            human_plural: Solicitações de Serviços
+      attributes:
+         solicitacao_servico:
+            paciente: Paciente
+            data: Data
+            profissional: Profissional
+            servico: Serviço

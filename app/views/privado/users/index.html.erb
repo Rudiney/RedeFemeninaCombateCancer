@@ -1,0 +1,26 @@
+<div id="crud_index">
+
+	<div id="lista">
+		
+		<div id="lista_header" class="section_header">
+			<%= link_to(image_tag('botoes/add.png'), new_user_path, remote: true, style: 'float: right') %>
+			<h2 class="titulo"><%= User.model_names[:human_plural] %></h2>
+			<%= filtra_html('#indice .item', watermark: t('crud.pesquisa')) %>
+		</div>
+		<ul id="indice">
+			<% @users.each do |s| %>
+				<li id='<%= s.id %>' class='item pode_selecionar'>
+					<%= s.nome %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	
+	<div id="direita" class="resumos">
+		<%= render(partial: 'resumo', collection: @users, as: :user) %>
+		<div id="exibe_form" class="resumo"></div>
+	</div>
+</div>
+
+<%= javascript_tag("Crud.exibeResumo({id: #{params[:selecionar] || @users.first.id}});") if @users.any? %>
+

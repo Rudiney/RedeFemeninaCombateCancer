@@ -1,0 +1,10 @@
+<% if r.errors.any? %>
+	<div class='crud_erros_registro'>
+		<%= t('crud.mensagem_erro', model: r.class.model_name.human, count: r.errors.size) %>
+		<ul>
+			<% r.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

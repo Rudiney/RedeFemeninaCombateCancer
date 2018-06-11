@@ -1,0 +1,15 @@
+pt-BR:
+   activerecord:
+      models:
+         solicitacao_produto: Solicitação de Produto
+      model_names:
+         solicitacao_produto:
+            singular: solicitacao_produto
+            plural: solicitacoes_produtos
+            human_singular: Solicitação de Produtos
+            human_plural: Solicitações de Produtos
+      attributes:
+         solicitacao_produto:
+            paciente: Paciente
+            solicitado_dia: Solicitado dia
+            entregue_dia: Entregue dia

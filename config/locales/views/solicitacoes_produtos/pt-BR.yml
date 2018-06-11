@@ -1,0 +1,9 @@
+pt-BR:
+  privado:
+     solicitacoes_produtos:
+        index:
+           vencidas: Vencidas
+           nao_entregues: Ainda não entregue
+           entregues: Já entregues
+        form:
+           novo_produto: adicionar produto

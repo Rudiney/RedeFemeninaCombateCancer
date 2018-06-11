@@ -1,0 +1,18 @@
+<%= f.fields_for :meios_contato do |mcf| %>
+	<tr class="meio_contato">
+		<td class="titulo"><%= mcf.select(:tipo, MeioContato::TIPOS_POSSIVEIS, {}, class: 'meio_contato') %></td>
+		<td colspan='3'><%= mcf.text_field(:valor) %></td>
+	</tr>
+<% end %>
+<tr>
+	<td></td>
+	<td colspan='3'><%= link_to(t('.novo_meio_contato'), '#', id: 'add_meio_contato') %></td>
+</tr>
+
+<script type="text/javascript" charset="utf-8">
+	$('#add_meio_contato').bind('click', function(){
+		if(typeof qtde_add === 'undefined'){ qtde_add = 0;};
+		$($('tr.meio_contato:first').prop('outerHTML').replace(/\[\d+\]\[(\D+)\]/g, '[-'+ (++qtde_add) +'][$1]')).
+		insertAfter('tr.meio_contato:last').find(':input').val('');
+	});
+</script>

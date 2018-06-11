@@ -1,0 +1,46 @@
+<table class="servicos_prestados">
+	<tr>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoServico.human_attribute_name(:paciente) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoServico.human_attribute_name(:data) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoServico.human_attribute_name(:servico) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoServico.human_attribute_name(:profissional) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4> .</h4>
+		</div></td>		
+	</tr>
+	
+	<% total = 0 %>
+	<% @relatorio.servicos_prestados.each do |agrupamento, servicos| %>
+	
+		<% if servicos %>
+		
+			<%= render(partial: 'linha_servico', collection: servicos, as: :servico) %>
+			<% total += servicos.size %>
+			
+			<tr class="subtotal">
+				<td class="subtotal" colspan='4'>
+					<%= agrupamento.is_a?(Fixnum) ? "#{t('date.month_names')[agrupamento]}" : "#{agrupamento.class.model_names[:human_singular]} #{agrupamento.nome}" %>:
+				</td>
+				<td><%= servicos.size %></td>
+			</tr>
+			
+		<% else %>
+			<%= render('linha_servico', servico: agrupamento) %>
+		<% end %>
+	<% end %>
+	
+	<tr class="total">
+		<td class="total" colspan='4'>
+			Total de serviços prestados:
+		</td>
+		<td><%= total %></td>
+	</tr>
+</table>

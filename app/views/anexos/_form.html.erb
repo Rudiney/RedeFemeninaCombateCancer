@@ -1,0 +1,34 @@
+<tr>
+	<td colspan='4' style='padding: 0px'>
+		<table class='anexos'>
+			<tr><td colspan='5' class="header">
+				<div class="section_header"><h3><%= t('.titulo') %></h3></div>
+			</td></tr>
+			<%= f.fields_for :anexos do |af| %>
+				<tr style="display: none"><td colspan='5'><%= af.hidden_field(:_destroy, value: '1') %></td></tr>
+				<tr class="anexo hover_nisso">
+					<td class="titulo"><%= af.label(:nome) %></td>
+					<td class="nome"><%= af.text_field(:nome) %></td>
+					<td class="titulo"><%= af.label(:arquivo) %></td>
+					<td class="arquivo"><%= af.file_field(:arquivo) %></td>
+					<td class="remover hover_exibe_isso">
+						<%= af.hidden_field(:_destroy, value: '0') %>
+						<%= link_to_function(image_tag('botoes/minus-circle.png'),'$(this).parents("tr.anexo").remove();') %>
+					</td>
+				</tr>
+			<% end %>
+			<tr>
+				<td colspan='5' align='right'><%= link_to(t('.novo_anexo'), '#', id: 'add_anexo') %></td>
+			</tr>
+		</table>
+	</td>
+</tr>
+
+
+<script type="text/javascript" charset="utf-8">
+	$('#add_anexo').bind('click', function(){
+		if(typeof qtde_add === 'undefined'){ qtde_add = 0;};
+		$($('tr.anexo:first').prop('outerHTML').replace(/\[\d+\]\[(\D+)\]/g, '[-'+ (++qtde_add) +'][$1]')).
+		insertAfter('tr.anexo:last').find(':input').val('');
+	});
+</script>

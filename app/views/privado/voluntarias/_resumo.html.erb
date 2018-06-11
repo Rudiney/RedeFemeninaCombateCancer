@@ -1,0 +1,95 @@
+<% id_prefix ||= '' %>
+
+<div registro="<%= id_prefix %><%= voluntaria.id %>" class='resumo'>
+	<table class='tabela_informacoes'>
+		<tr>
+			<td colspan='4' class='header'>
+				<div class="section_header">
+					<%= botao_impressao(impressao_voluntaria_path(voluntaria)) %>
+					<%= link_to(image_tag('botoes/editar.png'), edit_voluntaria_path(voluntaria), style:'float: right', remote: true) %>
+					<h2><%= voluntaria.class.model_names[:human_singular] %> <%= voluntaria.id %></h2>					
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nome) %></td>
+			<td><%= voluntaria.nome %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(voluntaria.data_do_cadastro) if voluntaria.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:tipo_voluntaria) %></td>
+			<td <%= 'colspan=3' unless voluntaria.atuante? %>>
+				<%= link_to(voluntaria.tipo_voluntaria.nome, voluntaria.tipo_voluntaria) if voluntaria.tipo_voluntaria %>
+			</td>
+			<% if voluntaria.atuante? %>
+				<td class="titulo"><%= Voluntaria.human_attribute_name(:atuante_desde) %></td>
+				<td><%= l(voluntaria.ativada_em.to_date) %></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nascimento) %></td>
+			<td><%= l(voluntaria.nascimento) %> (<%= voluntaria.idade %> anos)</td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:local_de_nascimento) %></td>
+			<td><%= voluntaria.local_de_nascimento %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:estado_civil) %></td>
+			<td><%= voluntaria.estado_civil.nome %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nome_do_esposo) %></td>
+			<td><%= voluntaria.nome_do_esposo %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:identidade) %></td>
+			<td><%= voluntaria.identidade %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:cpf) %></td>
+			<td><%= voluntaria.cpf %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:profissao) %></td>
+			<td><%= voluntaria.profissao %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:escolaridade) %></td>
+			<td><%= voluntaria.escolaridade.nome %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:endereco) %></td>
+			<td colspan='3'><%= voluntaria.endereco%></td>
+		</tr>
+		<% voluntaria.meios_contato.each do |mc| %>
+		<tr>
+			<td class="titulo"><%= mc.tipo %></td>
+			<td colspan='3' class="hover_nisso">
+				<%= mc.valor %> 
+				<%= link_to(image_tag('botoes/minus-circle.png', class: 'hover_exibe_isso', style: 'vertical-align: bottom'), 
+					url_for(id: voluntaria.id, controller: 'voluntarias', action: 'update', 
+					voluntaria: { meios_contato_attributes: {'1' => {id: mc.id, _destroy: '1'
+					}}}), remote: true, method: 'PUT', confirm: t('crud.confirma_excluir')) %>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:horario_para_contato) %></td>
+			<td colspan='3'><%= voluntaria.horario_para_contato %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:areas_interesse) %></td>
+			<td colspan='3'><%= voluntaria.areas_interesse %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:sugestoes) %></td>
+			<td colspan='3'><%= voluntaria.sugestoes %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= voluntaria.observacao %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:anexos) %></td>
+			<td colspan='3'><ul>
+				<% voluntaria.anexos.each do |an| %>
+					<li><%= link_to(an.nome, an.arquivo.url, target: "_blank") %></li>
+				<% end %>
+			</ul></td>
+		</tr>
+	</table>
+</div>

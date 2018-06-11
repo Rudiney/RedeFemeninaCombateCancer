@@ -1,0 +1,32 @@
+@import 'helpers';
+
+.section_header{
+	border-top: 1px solid #FEFFFE;
+	border-bottom: 1px solid #717071;
+	@include fundo_gradiente(#DDDDDE, #A4A5A9);
+	text-shadow: #FEFFFE 0px 1px 0px;
+	
+	h2, h3, h4{
+		font-weight: bold;
+		text-align: center;
+		
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	
+	h2{
+		padding: 7px;
+		font-size: 14pt;
+	}
+	
+	h3{
+		padding: 5px;
+		font-size: 12pt;
+	}
+	
+	h4{
+		padding: 2px;
+		font-size: 10pt;
+	}
+}

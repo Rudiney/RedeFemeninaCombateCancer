@@ -1,0 +1,31 @@
+<div registro="<%= convenio.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_convenio_path(convenio), style:'float: right', remote: true) %>
+					<h2><%= convenio.class.model_names[:human_singular] %> <%= convenio.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Convenio.human_attribute_name(:nome) %></td>
+			<td><%= convenio.nome %></td>
+			<td class="titulo"><%= Convenio.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(convenio.data_do_cadastro) if convenio.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Convenio.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= convenio.observacao %></td>
+		</tr>
+		
+		<tr>
+			<td class="titulo"><%= Convenio.human_attribute_name(:profissionais) %></td>
+			<td colspan='3'><ul>
+				<% convenio.profissionais.each do |p| %>
+					<li><%= link_to(p.nome, p) %></li>
+				<% end %>
+			</ul></td>
+		</tr>
+	</table>
+</div>

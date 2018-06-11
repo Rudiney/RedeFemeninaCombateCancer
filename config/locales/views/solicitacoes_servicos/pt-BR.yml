@@ -1,0 +1,6 @@
+pt-BR:
+  privado:
+     solicitacoes_servicos:
+        index:
+           futuras: Próximas
+           passadas: Já realizadas

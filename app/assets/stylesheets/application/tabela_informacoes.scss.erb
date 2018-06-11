@@ -1,0 +1,40 @@
+@import "helpers";
+
+.tabela_informacoes {
+
+	border: 1px solid #999;
+	width: 100%;
+	padding: 5px 0;
+	background-color: white;
+	border-spacing: 0;
+
+	.titulo {
+		text-align: right;
+		font-weight: bold;
+		font-size: 80%;
+		color:#506DB5;
+		vertical-align: middle;
+
+		&.center{text-align: center; }
+		&.left{text-align: left; }
+	}
+
+	tr {
+		td {
+			padding: 5px;
+			vertical-align: middle;
+
+			&.titulo {
+				width: 10px;
+				padding-right: 0px;
+			}
+
+
+			&.header{
+				padding: 0px;
+			}
+		}
+	}
+
+	tr:not(:first-child) td {border-top: 1px solid #C9C9C9; }
+}

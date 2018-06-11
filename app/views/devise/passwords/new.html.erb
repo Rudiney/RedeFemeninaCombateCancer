@@ -1,0 +1,24 @@
+<div class="devise">
+	<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+	  <%= devise_error_messages! %>
+	<table class='tabela_informacoes'>
+		<tr>
+			<td colspan='2' class="header">
+				<div class="section_header">
+					<h2>Esqueceu sua senha?</h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class='titulo'><%= f.label :email, 'Email' %></td>
+			<td><%= f.email_field :email, :autofocus => true %></td>
+		</tr>
+		<tr>
+			<td colspan=2 align=right>
+				<%= render "devise/shared/links" %>
+				<%= f.submit "Envia-me um email com as instruções" %>
+			</td>
+		</tr>
+	</table>
+	<% end %>
+</div>

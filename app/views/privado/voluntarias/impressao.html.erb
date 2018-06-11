@@ -1,0 +1,77 @@
+<div class="voluntaria" id="<%= @voluntaria.id %>">
+	<h2>Ficha da Voluntária</h2>
+	
+	<hr />
+	
+	<table>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nome) %></td>
+			<td><%= @voluntaria.nome %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(@voluntaria.data_do_cadastro) if @voluntaria.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:tipo_voluntaria) %></td>
+			<td <%= 'colspan=3' unless @voluntaria.atuante? %>>
+				<%= @voluntaria.tipo_voluntaria.nome %>
+			</td>
+			<% if @voluntaria.atuante? %>
+				<td class="titulo"><%= Voluntaria.human_attribute_name(:atuante_desde) %></td>
+				<td><%= l(@voluntaria.ativada_em.to_date) %></td>
+			<% end %>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nascimento) %></td>
+			<td><%= l(@voluntaria.nascimento) %> (<%= @voluntaria.idade %> anos)</td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:local_de_nascimento) %></td>
+			<td><%= @voluntaria.local_de_nascimento %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:estado_civil) %></td>
+			<td><%= @voluntaria.estado_civil.nome %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:nome_do_esposo) %></td>
+			<td><%= @voluntaria.nome_do_esposo %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:identidade) %></td>
+			<td><%= @voluntaria.identidade %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:cpf) %></td>
+			<td><%= @voluntaria.cpf %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:profissao) %></td>
+			<td><%= @voluntaria.profissao %></td>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:escolaridade) %></td>
+			<td><%= @voluntaria.escolaridade.nome %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:endereco) %></td>
+			<td colspan='3'><%= @voluntaria.endereco%></td>
+		</tr>
+		<% @voluntaria.meios_contato.each do |mc| %>
+		<tr>
+			<td class="titulo"><%= mc.tipo %></td>
+			<td colspan='3' class="hover_nisso">
+				<%= mc.valor %> 
+			</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:horario_para_contato) %></td>
+			<td colspan='3'><%= @voluntaria.horario_para_contato %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:areas_interesse) %></td>
+			<td colspan='3'><%= @voluntaria.areas_interesse %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:sugestoes) %></td>
+			<td colspan='3'><%= @voluntaria.sugestoes %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= Voluntaria.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= @voluntaria.observacao %></td>
+		</tr>
+	</table>
+	
+</div>

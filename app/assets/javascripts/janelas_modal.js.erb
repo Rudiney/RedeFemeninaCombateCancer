@@ -1,0 +1,64 @@
+var JanelaModal = {
+
+	//configuração padrão de um qtip funcionando como janela modal
+	default_configs: {
+		show: {
+			when: 'click',
+			solo: true
+		},
+		style:{ 
+			width: {max: 10000 },
+			classes:{ content: 'janela_modal'}
+		},
+		hide: false,
+		api: {
+			beforeShow: function(){
+				$('#mascara_janela_modal').show();
+			},
+			beforeHide: function(){
+				$('#mascara_janela_modal').hide();
+			}
+		}
+	},
+	
+	/*
+		configuração para uma nova janela modal dentro do qtip,
+		content = HTML que será incluido dentro do qtip
+		configs = configurações adicinais do qtip
+	*/
+	config: function(content, configs){
+		return $.extend($.extend(this.default_configs, {
+			content: {text: content},
+			position: {
+				target: $(document.body),
+				corner: 'center'
+			}
+		}), configs);
+	},
+	
+	/*
+		cria uma nova janela modal
+		params{
+			elemento: o elemento HTML para adicionar o qtip (opcional),
+			conteudo: o html de conteudo da janela modal,
+			qtip: qualquer outra configuração do qtip
+			show: (true|false) para já exibir o tooltip
+		}
+		
+		se o elemento não é passado
+	*/
+	new: function(params){
+		
+		if(params.elemento == undefined){
+			params.elemento = $('<div></div>').appendTo(document.body);
+			params.show = true;
+		}
+		
+		$("<div id='mascara_janela_modal'></div>").appendTo(document.body).hide();
+		
+		params.elemento.qtip(this.config(params.conteudo,params.qtip));
+		
+		if(params.show === true){ params.elemento.click(); }
+		
+	}
+};

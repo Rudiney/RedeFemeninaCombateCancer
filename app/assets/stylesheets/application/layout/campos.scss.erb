@@ -1,0 +1,52 @@
+@import "helpers";
+
+input[type=text], textarea, select, input[type=password], input[type=email]{
+	border: 2px solid #CCCCCC; 
+	border-top: none;
+	width: 100%;
+	@include box_sizing_border_box();
+}
+
+label {
+	font-weight: bold;
+	vertical-align: bottom;
+}
+
+div.field.nao_quebra_linha{
+	float:left;
+}
+
+select:not([multiple]) {
+ 	height: 20px;
+	padding-left: 3px;
+	background-color: transparent;
+
+	/* CSS Hack Chrome e Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		
+		-webkit-appearance: none;
+		   -moz-appearance: none;
+			  -o-appearance: none;
+			     appearance: none;
+		
+		background-image: url('<%= image_path('seta_informacao_expandida.png') %>');
+		background-size: 10px;
+		background-repeat: no-repeat;
+		background-position: center right;
+		
+		padding: 0px 15px 1px 3px;
+		
+		@include borda_redonda(0);
+	}
+}
+
+.select2-input{
+	height: 20px !important;
+	font-family: inherit !important;
+	color: #7F7F7F !important;
+}
+
+select.meio_contato{
+	font-weight: bold;
+	color: #506DB5;
+}

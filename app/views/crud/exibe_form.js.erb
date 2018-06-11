@@ -1,0 +1,13 @@
+<% 
+	div_form = params[:div_form] || 'div#exibe_form' 
+	form_partial = params[:form_partial_name] || 'form'
+%>
+
+$('div.resumos .resumo').hide();
+$('<%= div_form %>').html('<%= j(render(form_partial))%>').show();
+$('<%= div_form %> form :input:visible:enabled')[1].focus();
+$('a.botao.add.carregando').removeClass('carregando');
+
+$('form').bind('submit', function(){
+	$(this).find('input#submeter').hide().end().find('img#submetendo').show();
+})

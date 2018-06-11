@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rede Feminina de Combate ao Câncer</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="corpo" class="<%= controller.controller_name %> <%= controller.action_name %>">
+		<div id="page_header"><%= render('layouts/header') %></div>
+		<div id="menu"><%= render('layouts/menu') %></div>
+		<div id="page_content"><%= yield -%></div>
+	</div>
+	<%= javascript_tag("$('#menu li##{@menu_ativo}').addClass('selecionado').next().addClass('depois_do_selecionado');") if @menu_ativo %>
+</body>
+<iframe id='para_impressao' src="" frameborder="0" style='display:none'></iframe>
+</html>

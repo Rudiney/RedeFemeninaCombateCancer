@@ -1,0 +1,31 @@
+<tr>
+	<td colspan='4' class="header"><div class="section_header">
+		<%= link_to(image_tag('botoes/add.png', style: 'height: 22px; margin: 2px 2px 0px 0px;'), new_solicitacao_servico_path(solicitacao_servico: {paciente_id: paciente.id}), remote: true, style: 'float: right;') %>
+		<h3><%= Paciente.human_attribute_name(:solicitacoes_servicos) %></h3>
+	</div></td>
+</tr>
+<tr>
+	<td colspan="4" style='padding: 0px'>
+		<table width='100%'>
+			<tr>
+				<td class='titulo left'><%= SolicitacaoServico.human_attribute_name(:data) %></td>
+				<td class='titulo left'><%= SolicitacaoServico.human_attribute_name(:hora) %> </td>
+				<td class='titulo left' style='width: 50%'><%= SolicitacaoServico.human_attribute_name(:servico) %></td>
+				<td class='titulo left' style='width: 50%'><%= SolicitacaoServico.human_attribute_name(:profissional) %></td>
+			</tr>
+
+			<% paciente.solicitacoes_servicos.each do |s|  %>
+				<tr>
+					<td NOWRAP><%= l(s.data) %></td>
+					<td NOWRAP><%= s.hora %></td>
+					<td NOWRAP><%= link_to(s.servico.nome, s) %></td>
+					<td NOWRAP><%= link_to(s.profissional.nome, s) %></td>
+				</tr>
+			<% end %>
+
+			<% if paciente.solicitacoes_servicos.empty? %>
+				<tr><td colspan=4><div class="msg grey center"><%= t('.paciente_sem_solicitacao_servico') %></div></td></tr>
+			<% end %>
+		</table>
+	</td>
+</tr>

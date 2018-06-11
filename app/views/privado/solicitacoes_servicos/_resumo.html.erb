@@ -1,0 +1,30 @@
+<div registro="<%= solicitacao_servico.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='4' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_solicitacao_servico_path(solicitacao_servico), style:'float: right', remote: true) %>
+					<h2><%= solicitacao_servico.class.model_names[:human_singular] %> <%= solicitacao_servico.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoServico.human_attribute_name(:paciente) %></td>
+			<td colspan=3><%= link_to(solicitacao_servico.paciente.nome,solicitacao_servico.paciente) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoServico.human_attribute_name(:data) %></td>
+			<td style='width: 100px'><%= l(solicitacao_servico.data) %></td>
+			<td class="titulo"><%= SolicitacaoServico.human_attribute_name(:hora) %></td>
+			<td><%= solicitacao_servico.hora %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoServico.human_attribute_name(:servico) %></td>
+			<td colspan=3><%= link_to(solicitacao_servico.servico.nome,solicitacao_servico.servico) %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= SolicitacaoServico.human_attribute_name(:profissional) %></td>
+			<td colspan=3><%= link_to(solicitacao_servico.profissional.nome,solicitacao_servico.profissional) %></td>
+		</tr>
+	</table>
+</div>

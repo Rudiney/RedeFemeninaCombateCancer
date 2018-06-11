@@ -1,0 +1,9 @@
+pt-BR:
+   activerecord:
+      models:
+         produto_solicitacao_produto: Voluntária
+      attributes:
+         produto_solicitacao_produto:
+            produto: Produto
+            quantidade: Qtde
+            valido_ate: Valido até

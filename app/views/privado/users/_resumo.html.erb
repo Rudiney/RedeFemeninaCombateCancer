@@ -1,0 +1,33 @@
+<div registro="<%= user.id %>" class='resumo'>
+	<table class="tabela_informacoes">
+		<tr>
+			<td colspan='2' class="header">
+				<div class="section_header">
+					<%= link_to(image_tag('botoes/editar.png'), edit_user_path(user), style:'float: right', remote: true) %>
+					<h2><%= user.class.model_names[:human_singular] %> <%= user.id %></h2>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= User.human_attribute_name(:nome) %></td>
+			<td><%= user.nome %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= User.human_attribute_name(:email) %></td>
+			<td><%= user.email %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= User.human_attribute_name(:is_admin) %></td>
+			<td><%= user.is_admin? ? 'Sim' : 'Não' %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= User.human_attribute_name(:data_do_cadastro) %></td>
+			<td><%= l(user.data_do_cadastro) if user.data_do_cadastro %></td>
+		</tr>
+		<tr>
+			<td class="titulo"><%= User.human_attribute_name(:observacao) %></td>
+			<td colspan='3'><%= user.observacao %></td>
+		</tr>
+		
+	</table>
+</div>

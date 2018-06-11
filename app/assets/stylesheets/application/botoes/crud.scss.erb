@@ -1,0 +1,91 @@
+@import "helpers";
+
+@mixin estilo_para_botoes_com_imagens(){
+	background: none;
+	border: none;
+	color: #00005E;
+	font-size: 15px;
+	height: 30px;
+	background-position: 2px 2px !important;
+	padding-left: 28px;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;	
+	background-position: 2px 2px;
+}
+
+a.botao{
+	color: black;
+	text-decoration: none;
+	font-size: 15px;
+	padding: 6px;
+	display: inline-block;
+	@include fundo_gradiente(#DCDCDC, #B5B5B5);
+	@include borda_redonda(5px);
+	border: 1px solid #999;
+	
+	&:hover {
+		@include fundo_gradiente(#E3E3E3, #C1C1C1);
+	}
+	
+	&:active{
+		@include fundo_gradiente(#C1C1C1, #E3E3E3);
+	}
+}
+
+a.botao.carregando {
+	background-image: url(<%= image_path('loading.gif') %>) !important;
+	padding-left: 20px !important;
+	background-size: 16px 16px !important;
+	background-position: 2px 6px !important;
+}
+
+a.botao.add           {background-image: url("<%= image_path('botoes/add.png')%>");}
+a.botao.editar        {background-image: url("<%= image_path('botoes/editar.png')%>");}
+a.botao.utilizar_aula {background-image: url("<%= image_path('botoes/export.png')%>");}
+a.botao.ver           {background-image: url("<%= image_path('botoes/ver.png')%>");}
+a.botao.salvar        {background-image: url("<%= image_path('botoes/salvar.png')%>");}
+a.botao.voltar        {background-image: url("<%= image_path('botoes/voltar.png')%>");}
+a.botao.lista_espera  {background-image: url("<%= image_path('History.png')%>");}
+
+a.botao.excluir{
+	border: none;
+	background: white;
+	color: red;
+	float: right;
+}
+
+a.botao.mail {
+	background-image: url("<%= image_path('botoes/mail.png')%>");
+	padding-top: 10px;
+	padding-left: 28px;
+}
+
+a.botao.imprimir {
+	background-image: url("<%= image_path('botoes/printer.png')%>");
+	padding-left: 20px;
+	background-size: 16px 16px;
+	background-position: 2px 6px;
+}
+
+
+a.botao.cancelar {
+	background-size: 20px 20px;
+	font-size: 75%;
+	padding-left: 5px;
+}
+
+input[type=submit].botao:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+input[type=submit].botao.registrar {
+	@include estilo_para_botoes_com_imagens();
+	background-image: url("<%= image_path('botoes/registrar.png')%>");
+}
+
+input[type=submit].botao.salvar {
+	@include estilo_para_botoes_com_imagens();
+	background-image: url("<%= image_path('botoes/salvar.png')%>");
+
+}

@@ -1,0 +1,104 @@
+<%= form_for(@solicitacao_produto, remote: true, html:{
+		class: 'form_solicitacao_produtos'}) do |f| %>
+<table class='tabela_informacoes'>
+	<td colspan='4' class="header">
+		<div class="section_header">
+			<%= image_submit_tag('botoes/salvar.png', style: 'float:right', id: 'submeter') %>
+			<%= image_tag('loading.gif', id: 'submetendo', style: 'display:none; float: right;') %>
+			<h2><%= @solicitacao_produto.class.model_names[:human_singular] %></h2>
+		</div>
+	</td>		
+	<% if @solicitacao_produto.errors.any? %>
+	<tr><td colspan=4>
+		<%= render(partial: 'crud/erros_registro', locals: {r: @solicitacao_produto}) %>
+	</td></tr>
+	<% end %>		
+	<tr>
+		<td class="titulo"><%= f.label(:paciente) %></td>
+		<td colspan='3'><%= f.collection_select(:paciente_id, Paciente.all, :id, :nome, {}, {style: 'width: 100%', class: 'has_select2'}) %></td>
+	</tr>
+	<tr>
+		<td class="titulo"><%= f.label(:solicitado_dia) %></td>
+		<td><%= f.text_field(:solicitado_dia, style: 'width: 90px', value: l(@solicitacao_produto.solicitado_dia || Date.today)) %></td>
+		<td class="titulo"><%= f.label(:entregue_dia) %></td>
+		<td><%= f.text_field(:entregue_dia, style: 'width: 90px') %></td>
+	</tr>
+	<tr><td colspan='4' style='padding:0px'>
+		<table id='produtos_selecionados'>
+			<tr>
+				<td class="header"><div class="section_header">
+					<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:quantidade) %></h3>
+				</div></td>
+				<td class="header" style='width:100%;'><div class="section_header">
+					<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:produto) %></h3>
+				</div></td>
+				<td class="header"><div class="section_header">
+					<h3><%= ProdutoSolicitacaoProduto.human_attribute_name(:valido_ate) %></h3>
+				</div></td>
+				<td class="header"><div class="section_header"></div></td>
+			</tr>
+			<tr id="copia_produto" class="produto" style='display:none'>
+				<td><%= number_field_tag(:quantidade, '', style: 'width: 50px;',
+					id: 'solicitacao_produto_produtos_solicitados_attributes__XXX_quantidade',
+					name: 'solicitacao_produto[produtos_solicitados_attributes][-XXX][quantidade]',
+					value: 1
+					) %>
+				</td>
+				<td><%= collection_select(:produto_id, '', Produto.all, :id, :nome,{},{style: 'width: 100%',
+					id: 'solicitacao_produto_produtos_solicitados_attributes__XXX_produto_id',
+					name: 'solicitacao_produto[produtos_solicitados_attributes][-XXX][produto_id]',
+					}) %>
+				</td>
+				<td><%= text_field_tag(:valido_ate, '', style: 'width: 80px;',
+					id: 'solicitacao_produto_produtos_solicitados_attributes__XXX_valido_ate',
+					name: 'solicitacao_produto[produtos_solicitados_attributes][-XXX][valido_ate]',
+					class: 'data'
+					) %>
+				</td>
+				<td>
+					<%= link_to_function(image_tag('botoes/excluir.png'),"$(this).parents('tr.produto').remove();", class: 'botao_remover_produto') %>
+				</td>
+			</tr>
+			
+			<%= f.fields_for :produtos_solicitados do |pf| %>
+				<tr style='display:none;'><td colspan='3'><%= pf.hidden_field('_destroy', value: 1) %></td></tr>
+				<tr class="produto">
+					<td><%= pf.number_field(:quantidade, style: 'width: 50px;') %></td>
+					<td><%= pf.collection_select(:produto_id, Produto.all, :id, :nome,{},{style: 'width: 100%', class: 'has_select2'}) %></td>
+					<td><%= pf.text_field(:valido_ate, value: (pf.object.valido_ate ? l(pf.object.valido_ate) : ''),
+					        style: 'width: 80px', class: 'data') %></td>
+					<td>
+						<%= pf.hidden_field('_destroy', value: 0) %>
+						<%= link_to_function(image_tag('botoes/excluir.png'),"$(this).parents('tr.produto').remove();", class: 'botao_remover_produto') %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</td></tr>
+	<tr><td colspan='4' align='right'>
+		<%= link_to(t('.novo_produto'), '#', id: 'add_produto') %>
+	</td></tr>
+	<% if @solicitacao_produto.persisted? %>
+	<tr><td colspan='4'>
+		<%= link_to(t('crud.excluir'), @solicitacao_produto, method: 'delete', confirm: t('crud.confirma_excluir')) %>
+	</td></tr>
+	<% end %>
+</table>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+	$('select.has_select2').select2();
+	$('#solicitacao_produto_solicitado_dia').mask('99/99/9999');
+	$('#solicitacao_produto_entregue_dia').mask('99/99/9999');
+	$('.data').mask('99/99/9999');
+	
+	$('a#add_produto').click(function(){
+		if(typeof qtde_add === 'undefined'){ qtde_add = 0;};
+		$($('tr#copia_produto').prop('outerHTML').replace(/XXX/g,(++qtde_add))).
+		insertAfter('tr.produto:last').show().attr('id','').find('select').select2().end().find('.data').mask('99/99/9999');;
+	})
+	
+	$('form.form_solicitacao_produtos').submit(function(){
+		$('tr#copia_produto:hidden').remove();
+	})
+</script>

@@ -1,0 +1,7 @@
+<div id="usuario_logado" class="section_header">
+	<%= image_tag('usuario.png', id: 'avatar') %>
+	<div id="nome"><%= current_user.nome %></div>
+	<div id="menuzinho">
+		<%= link_to('sair', destroy_user_session_path, method: :delete, id: :sair) %><br>
+	</div>
+</div>
