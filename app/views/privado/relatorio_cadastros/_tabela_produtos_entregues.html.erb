@@ -1,0 +1,52 @@
+<table class="produtos_entregues">
+	<tr>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoProduto.human_attribute_name(:paciente) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoProduto.human_attribute_name(:solicitado_dia) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= SolicitacaoProduto.human_attribute_name(:entregue_dia) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= ProdutoSolicitacaoProduto.human_attribute_name(:produto) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= ProdutoSolicitacaoProduto.human_attribute_name(:valido_ate) %></h4>
+		</div></td>
+		<td class="header"><div class="section_header">
+			<h4><%= ProdutoSolicitacaoProduto.human_attribute_name(:quantidade) %></h4>
+		</div></td>
+	</tr>
+	
+	<% total = 0 %>
+	
+	<% @relatorio.produtos_entregues.each do |agrupamento, produtos| %>
+	
+		<% subtotal = 0 %>
+		
+		<% if produtos %>
+		
+			<%= render(partial: 'linha_produto', collection: produtos, as: :produto) %>
+			
+			<% total += subtotal = produtos.sum(&:quantidade) %>
+			
+			<tr class="subtotal">
+				<td  class="subtotal" colspan='5'>
+					<%= agrupamento.is_a?(Fixnum) ? "#{t('date.month_names')[agrupamento]}" : "#{agrupamento.class.model_names[:human_singular]} #{agrupamento.nome}" %>:
+				</td>
+				<td class="numero"><%= subtotal %></td>
+			</tr>
+			
+		<% else %>
+			<%= render('linha_produto', produto: agrupamento) %>
+			<% total += agrupamento.quantidade %>
+		<% end %>
+		
+	<% end %>
+	<tr class="total">
+		<td  class="total" colspan='5'>Total de produtos entregues:</td>
+		<td class="numero"><%= total %></td>
+	</tr>
+</table>

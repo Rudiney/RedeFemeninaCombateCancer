@@ -1,0 +1,15 @@
+pt-BR:
+  privado:
+     relatorio_cadastros:
+        index:
+           titulo: Relatório de Cadastros
+           filtra: Filtros
+           filtros:
+              data_inicial: Data inicial
+              data_final: Data final
+              agrupar_por: Agrupar por
+        resumo:
+           titulo: Relatório de Cadastros
+           pacientes: Pacientes
+           
+              

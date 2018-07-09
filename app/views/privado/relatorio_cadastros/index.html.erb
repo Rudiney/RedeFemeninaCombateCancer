@@ -1,0 +1,39 @@
+<div id="crud_index">
+
+	<div id="lista">
+		<div id="lista_header" class="section_header">
+			<h2 class="titulo"><%= t('.titulo') %></h2>
+			<h3 class="titulo"><%= t('.filtra') %></h3>
+		</div>
+		<div id="filtros_relatorio">
+			<%= form_for(:filtros, remote: true) do |f| %>
+			<table class="tabela_informacoes">
+				<tr>
+					<td class="titulo"><%= f.label(:data_inicial, t('.filtros.data_inicial')) %></td>
+					<td><%= f.text_field(:data_inicial, value: l(Date.today - 1.month)) %></td>
+					<td class="titulo"><%= f.label(:data_final, t('.filtros.data_final')) %></td>
+					<td><%= f.text_field(:data_final, value: l(Date.today)) %></td>
+				</tr>
+				<tr>
+					<td class="titulo"><%= f.label(:agrupar_por, t('.filtros.agrupar_por')) %></td>
+					<td colspan='3'><%= f.select(:agrupar_por, RelatorioCadastros::AGRUPAMENTOS_POSSIVEIS, {}, {style: 'width: 100%'}) %></td>
+				</tr>
+				<tr>
+					<td colspan='4' align='right'>
+						<%= f.submit('filtrar') %>
+					</td>
+				</tr>
+			</table>
+			<% end %>
+		</div>
+	</div>
+	
+	<div id="direita" class="resumos">
+	</div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$('#filtros_data_inicial').mask('99/99/9999');
+	$('#filtros_data_final').mask('99/99/9999');
+	$('#filtros_relatorio select').select2({placeholder: "Todos"});
+</script>

@@ -1,0 +1,8 @@
+<tr>
+	<td><%= produto.paciente.nome %></td>
+	<td class="data"><%= l(produto.solicitado_dia) if produto.solicitado_dia %></td>
+	<td class="data"><%= l(produto.entregue_dia)   if produto.entregue_dia %></td>
+	<td><%= produto.produto.nome %></td>
+	<td class="data"><%= l(produto.valido_ate) if produto.valido_ate %></td>
+	<td class="numero"><%= produto.quantidade %></td>
+</tr>
