@@ -73,5 +73,6 @@ RedeFeminina::Application.configure do
 	}
 	
 	#for devise
-	config.action_mailer.default_url_options = { :host => 'rfcc.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'rfcc.herokuapp.com' }
+  config.assets.compile = false
 end
