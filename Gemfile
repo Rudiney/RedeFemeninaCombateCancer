@@ -31,8 +31,6 @@ group :test do
 	gem 'minitest'
 end
 
-gem 'sprockets', '2.12.5'
-
 gem 'classy_enum', '3.1.1'
 
 gem 'brstring', '3.3.0'
