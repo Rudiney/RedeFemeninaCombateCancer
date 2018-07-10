@@ -17,7 +17,7 @@ services:
       - "3000:3000"
     links:
       - db
-    entrypoint: rails s
+    command: rails s
 
 volumes:
   pg-data:
